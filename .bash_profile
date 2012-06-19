@@ -32,6 +32,7 @@ alias hal="ssh hal.local"
 alias wopr="ssh wopr.macminicolo.net"
 alias earth="ssh -XY slynch2@earth.crc.nd.edu"
 alias opteron="ssh -XY slynch2@opteron.crc.nd.edu"
+alias mailmenu="ssh slynch_mailmenu@ssh.phx.nearlyfreespeech.net"
 
 echo "Setting startnote function..."
 function startnote {
