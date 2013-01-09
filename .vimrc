@@ -1,6 +1,8 @@
 " Color scheme
 " Indent to 4 spaces
+"set tabstop=2
 set shiftwidth=2
+set expandtab
 set autoindent
 " C style indentation
 set cindent
@@ -34,5 +36,11 @@ set smartcase
 
 set scrolloff=3
 
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+au BufWinLeave ?* mkview
+au BufWinEnter ?* silent loadview
+
+retab
+
+call pathogen#infect()
+filetype plugin indent on
+
