@@ -1,4 +1,5 @@
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/texlive/2011/bin/x86_64-darwin:/Library/Frameworks/GDAL.framework/Programs:$PATH"
+
+export PATH="$HOME/opt/ccm:$HOME/bin:/usr/local/opt:/usr/local/bin:/usr/local/texlive/2011/bin/x86_64-darwin:/Library/Frameworks/GDAL.framework/Programs:$PATH"
 
 export PROMPT_COMMAND="source $HOME/bin/prompt_command"
 
@@ -40,3 +41,17 @@ alias scpresume="rsync --partial --progress --rsh=ssh"
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
+
+export VIMCLOJURE_SERVER_JAR="/Users/slynch/lib/vimclojure/server-2.3.6.jar"
+
+export RIQ_EC2_USER=sean
+
+function doMille {
+uno=$1 mille=""; for i in {1..1000}; do mille="$mille $uno "; done; echo $mille;
+}
+
+export RIQ=$HOME/src/riq
+source $HOME/src/riq/scripts/dev_bash_profile.sh
+export DEVENV=$HOME/src/devenv
+export PATH=$PATH:$HOME/src/devenv/bin
+export M2_HOME=/usr/local/Cellar/maven/3.1.1/libexec
