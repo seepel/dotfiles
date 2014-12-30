@@ -17,3 +17,7 @@ export VISUAL=vi
 set -o vi
 
 alias scpresume="rsync --partial --progress --rsh=ssh"
+
+export RBENV_ROOT="$(brew --prefix rbenv)"
+export GEM_HOME="$(brew --prefix)"
+export GEM_HOME="$(brew --prefix)"
