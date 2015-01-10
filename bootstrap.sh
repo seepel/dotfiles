@@ -40,7 +40,7 @@ function brew_install() {
 
 function cask_install() {
   appdir="Applications"
-  run_install "brew-cask install --appdir=\"/$appdir\"" "/$appdir/$1" "$2"
+  run_install "brew-cask install" "/$appdir/$1" "$2"
 }
 
  
@@ -60,6 +60,7 @@ cask_install "BetterTouchTool.app" "bettertouchtool"
 cask_install "Charles.app" "charles"
 cask_install "DropBox.app" "dropbox"
 cask_install "Google Chrome.app" "google-chrome"
+cask_install "java6" "java6"
 should_open_little_snitch=false
 if [ ! -e '/Applications/Little Snitch Configuration.app' ]; then
   should_open_little_snitch=true
@@ -70,11 +71,13 @@ cask_install "Skype.app" "skype"
 cask_install "Spotify.app" "spotify"
 cask_install "SourceTree.app" "sourcetree"
 cask_install "Sublime Text.app" "sublime-text3"
+cask_install "WebStorm.app" "webstorm"
 
 if [ ! -e "$HOME/.gemrc" ]; then
   echo "gem: -n/usr/local/bin" >> "$HOME/.gemrc"
 fi
 gem install cocoapods
+gem install less
 
 brew cleanup --force
 find /Library/Caches/Homebrew -mindepth 1 -delete
