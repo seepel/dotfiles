@@ -21,3 +21,5 @@ fi
 if [ ! -e "$HOME/.gemrc" ]; then
   echo "gem: -n/usr/local/bin" >> "$HOME/.gemrc"
 fi
+
+mkdir ~/.nvm
