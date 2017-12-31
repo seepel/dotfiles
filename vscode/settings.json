@@ -1,0 +1,24 @@
+{
+    // Place your settings in this file to overwrite the default settings
+    "workbench.colorTheme": "Default Light+",
+    "files.autoSave": "onFocusChange",
+    "window.zoomLevel": 0,
+    "editor.minimap.enabled": false,
+    "files.exclude": {
+        "**/*.js": {
+            "when": "$(basename).ts"
+        },
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true
+    },
+    "editor.rulers": [120],
+    "prettier.printWidth": 120,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "all",
+    "editor.formatOnSave": true,
+    "vim.disableAnnoyingNeovimMessage": true,
+    "cpplint.cpplintPath": "/usr/local/bin/cpplint"
+}

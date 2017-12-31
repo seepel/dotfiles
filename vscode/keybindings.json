@@ -1,0 +1,5 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    { "key": "cmd+shift+o", "command": "workbench.action.quickOpen"},
+    { "key": "ctrl+t", "command": "workbench.action.terminal.toggleTerminal", "when": "!terminalFocus"}
+]
