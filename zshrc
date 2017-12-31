@@ -18,6 +18,8 @@ set -o vi
 
 alias scpresume="rsync --partial --progress --rsh=ssh"
 
+export PATH="$HOME/bin:$PATH"
+
 export RBENV_ROOT="$(brew --prefix rbenv)"
 export GEM_HOME="$(brew --prefix)"
 export GEM_HOME="$(brew --prefix)"
