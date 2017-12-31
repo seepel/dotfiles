@@ -14,8 +14,11 @@
         "**/CVS": true,
         "**/.DS_Store": true
     },
-    "editor.rulers": [120],
+    "editor.rulers": [
+        120
+    ],
     "prettier.printWidth": 120,
+    "terminal.integrated.shell.osx": "/bin/zsh",
     "prettier.tabWidth": 4,
     "prettier.trailingComma": "all",
     "editor.formatOnSave": true,
