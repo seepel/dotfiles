@@ -66,8 +66,12 @@ set backspace=indent,eol,start
 call plug#begin('~/.vim/plugged')
 
 " Experimental
+Plug 'eandrju/cellular-automaton.nvim'
+
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-dispatch'
+
+Plug 'vimpostor/vim-lumen' 
 
 Plug 'easymotion/vim-easymotion'
 
@@ -81,6 +85,19 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 autocmd VimEnter * nmap <c-p> <plug>(ctrlp)
 Plug 'lambdalisue/fern.vim'
+function! s:init_fern() abort
+  echo "This function is called ON a fern buffer WHEN initialized"
+
+  " Open node with 'o'
+  nnoremap <buffer> dd <Plug>(fern-action-remove)
+
+  " Add any code to customize fern buffer
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
 " Plug 'preservim/nerdtree'
 " let NERDTreeHijackNetrw=1
 " Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -88,6 +105,22 @@ Plug 'lambdalisue/fern.vim'
 " Status 
 Plug 'vim-airline/vim-airline' " Lean & mean status/tabline for vim that's light as air 
 Plug 'vim-airline/vim-airline-themes'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts = 1
+" let g:airline_section_b = ' %{GetCurrentBranch()}'   " make sure the branch gets updated every few seconds
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+ 
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -105,6 +138,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/edge'
 Plug 'preservim/vim-colors-pencil'
 Plug 'arzg/vim-colors-xcode'
+Plug 'sainnhe/everforest'
 
 " Editing
 Plug 'tpope/vim-repeat' " Repeat plugin commands
@@ -140,6 +174,8 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+nnoremap <tab> :IcedFormat <cr>
+
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -147,14 +183,14 @@ endfunction
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> gp :cprev<cr>
+nnoremap <silent> gn :cnext<cr>
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gr <Plug>(coc-references) 
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
@@ -188,10 +224,10 @@ if has('nvim')
 endif
 
 " Clojure
-Plug 'tpope/vim-fireplace'
+" Plug 'tpope/vim-fireplace'
 " Plug 'tpope/vim-salve'
 " Plug 'liquidz/vim-iced', {'for': 'clojure'}
-" let g:iced_enable_default_key_mappings = v:true
+let g:iced_enable_default_key_mappings = v:true
 " let g:iced#nrepl#auto#does_switch_session = v:true
 " Plug 'liquidz/vim-iced-multi-session', {'for': 'clojure'}
 " let g:iced_multi_session#definitions = [
@@ -202,8 +238,8 @@ Plug 'tpope/vim-fireplace'
 "     \  'path': 'src/',
 "     \  'name': 'client'},
 "     \ ]
-" Plug 'liquidz/vim-iced-fern-debugger', {'for': 'clojure'}
-" Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
+Plug 'liquidz/vim-iced-fern-debugger', {'for': 'clojure'}
+Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
 
 " Editor Config
 Plug 'editorconfig/editorconfig-vim'
@@ -215,8 +251,10 @@ call plug#end()
 " }}}
 
 " MAPPINGS 
-let mapleader = ","
-let maplocalleader = "."
+let mapleader = " "
+let maplocalleader = ","
+
+:nnoremap g. :Fern . -reveal=%<cr>
 
 :noremap <c-s> :w<cr>
 :inoremap <c-s> <esc>:w<cr>a
@@ -240,9 +278,8 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-colorscheme iceberg
-set background=light
-let g:airline_theme='iceberg'
+colorscheme one
+let g:airline_theme='one'
 let g:netrw_liststyle = 3
 
 " STATUS LINE ------------------------------------------------------------ {{{
@@ -250,115 +287,4 @@ let g:netrw_liststyle = 3
 " Status bar code goes here.
 
 " }}}
-
-" set background=light
-
-" colorscheme PaperColor
-" set tabstop=2
-" set nocompatible
-" syntax on
-" filetype plugin indent on
-" set autoindent
-" set smartindent
-" set cursorline
-" set encoding=utf-8
-" set expandtab
-" set lazyredraw
-" set noerrorbells visualbell t_vb=
-" set vb t_vb=
-" set nowrap
-" set nu
-" set splitright
-" set backspace=indent,eol,start
-" set smartcase
-" set smartindent
-" set shiftwidth=2
-" set wildmode=list:longest
-" 
-" " page down/up for mac stnh 
-" :map <space> <c-f>
-" :map <backspace> <c-b>
-" noremap gb :NERDTreeFind<CR>
-" 
-" " REPL
-" " Send the text of a motion to the REPL
-" nmap <leader>rs  <Plug>(ReplSend)
-" " Send the current line to the REPL
-" nmap <leader>rss <Plug>(ReplSendLine)
-" nmap <leader>rs_ <Plug>(ReplSendLine)
-" " Send the selected text to the REPL
-" vmap <leader>rs  <Plug>(ReplSend)
-" 
- 
-" " Fix autofix problem of current line
-" " vim can't map <D-.> :(
-" nnoremap <Leader>f :CocFix<CR>
-" nnoremap <Leader>t :call CocAction('doHover')<CR>
-" 
-" " open current file's changes in a new tab.  holy balls this is useful
-" command! Changes tabedit % | Gdiff
-" command! Todos tabnew | call GrepFor("TODO:")<CR>
-" 
-" " debounced version of 'fugitive#head()' -- updates the powerline branch when you
-" " switch branches on the console.  airline generally just updates once... which is silly.
-" fu! GetCurrentBranch()
-"   let l:curtime = strftime('%s')
-" 
-"   if !exists('g:__git_refresh_branch_at') || g:__git_refresh_branch_at < l:curtime
-"     let g:__git_refresh_branch_at = l:curtime + 3   " update only every N seconds
-"     let g:__git_current_branch = fugitive#head()
-"   endif
-" 
-"   return g:__git_current_branch
-" endfu
-" 
-" " airline
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-" 
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline_powerline_fonts=1
-" let g:airline_powerline_fonts = 1
-" let g:airline_section_b = ' %{GetCurrentBranch()}'   " make sure the branch gets updated every few seconds
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = ''
-" 
-" 
-" let g:airline_theme = 'papercolor'
-" 
-" " enable indent guides
-" let g:indent_guides_enable_on_vim_startup = 1
-" 
-" " vim-prettier -> post npm install four lines at bottom file to run prettier setup
-" " Need coc -> coc-install
-" " uninstall gitgutter to see lint errors
-" " lop -> location open -> coc fixers
-" " restart tsserver -> CocRestart
-" " \f autofix \t show type
-" 
-" let g:paredit_electric_return=0
-" 
-" if exists('g:vscode')
-"   nmap cqp :call VSCodeNotify('calva.jackIn')<CR>
-"   nmap cqq :call VSCodeNotify('calva.disconnect')<CR>
-"   nmap cpr :call VSCodeNotify('calva.loadFile')<CR>
-"   nmap cpR :call VSCodeNotify('calva.loadNamespace')<CR>
-"   nmap cpp :call VSCodeNotify('calva.evaluateSelection')<CR>
-"   nmap cqc :call VSCodeNotify('calva.evalCurrentFormInREPLWindow')<CR>
-" endif
-" 
-" 
-" call plug#begin('~/.vim/plugged')
-" Plug 'junegunn/fzf'
-" Plug 'guns/vim-sexp',    {'for': 'clojure'}
-" Plug 'liquidz/vim-iced', {'for': 'clojure'}
-" call plug#end()
-" 
-" let g:iced_enable_default_key_mappings = v:true
 
