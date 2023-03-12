@@ -78,6 +78,10 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 
+if has('nvim')
+  Plug 'Olical/conjure'
+endif
+
 " Files
 Plug 'tpope/vim-vinegar' " Split windows and the project drawer go together like oil and vinegar.
 Plug 'ctrlpvim/ctrlp.vim'
@@ -120,7 +124,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
- 
+
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -217,11 +221,18 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " Lisp
-Plug 'guns/vim-sexp'   
+Plug 'guns/vim-sexp'
+Plug 'kovisoft/paredit'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 if has('nvim')
   Plug 'Olical/conjure'
 endif
+
+" fennel
+Plug 'bakpakin/fennel.vim'
+
+let g:sexp_enable_insert_mode_mappings = 0
+let g:sexp_filetypes = 'fennel'
 
 " Clojure
 " Plug 'tpope/vim-fireplace'
