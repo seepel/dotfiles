@@ -7,3 +7,8 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH=$PATH:~/bin:~/.vim/pack/clojure/start/vim-iced/bin
 
+# Load Git completion
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+fpath=(~/.zsh $fpath)
+
+autoload -Uz compinit && compinit
