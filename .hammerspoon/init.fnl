@@ -1,11 +1,8 @@
+(fn pprint [x] (print (.. "\n" (fennel.view x) "\n")))
 (local hyper-key "f19")
 (local hyper-mod (hs.hotkey.modal.new [] nil))
-(set hyper-mod.pressed (fn []
-                         (print "ENTER")
-                         (hyper-mod:enter)) )
-(set hyper-mod.released  (fn [] 
-                          (print "EXIT")
-                          (hyper-mod:exit)))
+(set hyper-mod.pressed #(hyper-mod:enter))
+(set hyper-mod.released  #(hyper-mod:exit))
 (hs.hotkey.bind [] hyper-key hyper-mod.pressed hyper-mod.released)
 (hs.hotkey.bind ["shift"] hyper-key hyper-mod.pressed hyper-mod.released)
 
