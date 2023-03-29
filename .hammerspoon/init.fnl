@@ -62,8 +62,6 @@
 (fn ctrl+shift [key]
   (hs.eventtap.keyStroke ["ctrl" "shift"] key))
 
-(fn apply [f args]
-  (f (table.unpack args)))
 
 (fn bind-hyper [mods key f]
   (hyper-mod:bind mods key nil f))
