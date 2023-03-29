@@ -82,8 +82,8 @@
 
 (bind-hyper [] "i" #(cmd "right"))
 (bind-hyper [] "o" #(cmd "left"))
-(bind-hyper [] "p" #(cmd "p"))
 (bind-hyper [] "r" hs.reload)
+(bind-hyper [] "p" #(ctrl "p") {slack #(cmd "k")})
 (bind-hyper [] "t" #(cmd "t"))
 (bind-hyper [] "w" #(cmd "w"))
 (bind-hyper [] "tab" #(ctrl "tab"))
