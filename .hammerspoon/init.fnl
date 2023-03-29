@@ -62,9 +62,18 @@
 (fn ctrl+shift [key]
   (hs.eventtap.keyStroke ["ctrl" "shift"] key))
 
+(fn bundle-id []
+  (let [win (hs.window.focusedWindow)
+        app (win:application)]
+    (app:bundleID)))
+ 
+(fn bind-hyper [mods key f bundle-id-handlers]
+  (hyper-mod:bind mods key nil
+                  (fn []
+                    (match (?. bundle-id-handlers (bundle-id))
+                      handler (handler)
+                      _ (f)))))
 
-(fn bind-hyper [mods key f]
-  (hyper-mod:bind mods key nil f))
 
 (bind-hyper [] "left" move-win-left)
 (bind-hyper [] "right" move-win-right)
