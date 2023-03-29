@@ -74,6 +74,7 @@
                       handler (handler)
                       _ (f)))))
 
+(local slack "com.tinyspeck.slackmacgap")
 
 (bind-hyper [] "left" move-win-left)
 (bind-hyper [] "right" move-win-right)
