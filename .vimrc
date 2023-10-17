@@ -1,4 +1,4 @@
-" SETTINGS ---------------------------------------------------------------- {{{
+" SETTINGS ---------------------------------------------------------------- {{{~~~%{
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
 " Enable type file detection. Vim will be able to try to detect the type of file in use.
@@ -59,13 +59,28 @@ set splitright
 " Can't remember this one
 set backspace=indent,eol,start
 
-" }}}
+" }}}}%~~~
+"
 
-" PLUGINS ---------------------------------------------------------------- {{{
+" PLUGINS ---------------------------------------------------------------- {{{{{{{{{
 
 call plug#begin('~/.vim/plugged')
 
 " Experimental
+"
+"
+Plug 'killphi/vim-ebnf'
+
+Plug 'jackMort/ChatGPT.nvim'
+Plug 'github/copilot.vim'
+
+if has('nvim') 
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'MunifTanjim/prettier.nvim'
+  Plug 'eliba2/vim-node-inspect'
+endif
+
 Plug 'eandrju/cellular-automaton.nvim'
 
 Plug 'tpope/vim-vinegar'
@@ -74,23 +89,32 @@ Plug 'tpope/vim-dispatch'
 Plug 'vimpostor/vim-lumen' 
 
 Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/vim-easy-align'
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 
-Plug 'bkad/CamelCaseMotion'
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-sunmap w
-sunmap b
-sunmap e
-sunmap ge
+" nvim-lsp stuff
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
-if has('nvim')
-  Plug 'Olical/conjure'
-endif
+"" For vsnip users. nvim-lsp needs this
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+" eThis doesn't work all of a sudden ¯\_(ツ)_/¯ 
+" Plug 'bkad/CamelCaseMotion'
+" map <silent> w <Plug>CamelCaseMotion_w
+" map <silent> b <Plug>CamelCaseMotion_b
+" map <silent> e <Plug>CamelCaseMotion_e
+" map <silent> ge <Plug>CamelCaseMotion_ge
+" sunmap w
+" sunmap b
+" sunmap e
+" sunmap ge
 
 " Files
 Plug 'tpope/vim-vinegar' " Split windows and the project drawer go together like oil and vinegar.
@@ -153,114 +177,35 @@ Plug 'sainnhe/edge'
 Plug 'preservim/vim-colors-pencil'
 Plug 'arzg/vim-colors-xcode'
 Plug 'sainnhe/everforest'
+Plug 'matsuuu/pinkmare'
+Plug 'savq/melange-nvim'
+Plug 'Th3Whit3Wolf/one-nvim'
 
 " Editing
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'tpope/vim-surround' " Surround with brackets
 Plug 'https://github.com/adelarsq/vim-matchit' " Extended matching for the % operator.
 Plug 'tpope/vim-sleuth' " Automatically figure out indentation
-Plug 'zhaocai/GoldenView.Vim' "Always have a nice view for vim split windows 
 Plug 'preservim/nerdcommenter'
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 nmap <C-_>   <Plug>NERDCommenterToggle
 vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 
-" LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_disable_startup_warning = 1
-let g:coc_global_extensions = [
-      \ 'coc-json', 'coc-git', 'coc-tsserver', 'coc-html',
-      \ 'coc-clojure', 'coc-css' ]
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-nnoremap <tab> :IcedFormat <cr>
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nnoremap <silent> gp :cprev<cr>
-nnoremap <silent> gn :cnext<cr>
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references) 
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
-
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
+" wasm
+Plug 'rhysd/vim-wasm'
 
 " Lisp
 Plug 'guns/vim-sexp'
 Plug 'kovisoft/paredit'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
-if has('nvim')
-  Plug 'Olical/conjure'
-endif
 
 " fennel
 Plug 'bakpakin/fennel.vim'
 
 let g:sexp_enable_insert_mode_mappings = 0
-let g:sexp_filetypes = 'fennel'
-
-" Clojure
-" Plug 'tpope/vim-fireplace'
-" Plug 'tpope/vim-salve'
-" Plug 'liquidz/vim-iced', {'for': 'clojure'}
-let g:iced_enable_default_key_mappings = v:true
-" let g:iced#nrepl#auto#does_switch_session = v:true
-" Plug 'liquidz/vim-iced-multi-session', {'for': 'clojure'}
-" let g:iced_multi_session#definitions = [
-"     \ {'port_file': printf('%s/.nrepl-port', expand('<sfile>:p:h')),
-"     \  'path': 'src/',
-"     \  'name': 'server'},
-"     \ {'port_file': printf('%s/.shadow-cljs/nrepl.port', expand('<sfile>:p:h')),
-"     \  'path': 'src/',
-"     \  'name': 'client'},
-"     \ ]
-Plug 'liquidz/vim-iced-fern-debugger', {'for': 'clojure'}
-Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
+let g:sexp_filetypes = 'lisp,scheme,clojure,fennel,wat'
+au FileType wast call PareditInitBuffer()
 
 " Editor Config
 Plug 'editorconfig/editorconfig-vim'
@@ -269,7 +214,7 @@ Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 
-" }}}
+" }}}}}}}}}
 
 " MAPPINGS 
 let mapleader = " "
@@ -299,7 +244,7 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-colorscheme one
+colorscheme melange
 let g:airline_theme='one'
 let g:netrw_liststyle = 3
 

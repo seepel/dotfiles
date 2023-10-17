@@ -59,6 +59,9 @@
 (fn ctrl [key]
   (hs.eventtap.keyStroke ["ctrl"] key))
 
+(fn cmd+ctrl [key]
+  (hs.eventtap.keyStroke ["cmd" "ctrl"] key))
+
 (fn ctrl+shift [key]
   (hs.eventtap.keyStroke ["ctrl" "shift"] key))
 
@@ -74,19 +77,47 @@
                       handler (handler)
                       _ (f)))))
 
+(hs.hotkey.bind ["ctrl" "cmd"] "left" move-win-left)
+(hs.hotkey.bind ["ctrl" "cmd"] "right" move-win-right)
+(hs.hotkey.bind ["ctrl" "cmd"] "up" maximize)
+
 (local slack "com.tinyspeck.slackmacgap")
+(local mail "com.apple.mail")
 
 (bind-hyper [] "left" move-win-left)
 (bind-hyper [] "right" move-win-right)
 (bind-hyper [] "up" maximize)
 
-(bind-hyper [] "i" #(cmd "right"))
-(bind-hyper [] "o" #(cmd "left"))
-(bind-hyper [] "p" #(ctrl "p") {slack #(cmd "k")})
+
+(bind-hyper [] "a" #(ctrl "a")
+            {mail #(cmd+ctrl "a")})
+(bind-hyper [] "b" #(ctrl "b"))
+(bind-hyper [] "c" #(ctrl "c"))
+(bind-hyper [] "d" #(ctrl "d"))
+(bind-hyper [] "e" #(ctrl "e"))
+(bind-hyper [] "f" #(ctrl "f"))
+(bind-hyper [] "g" #(ctrl "g"))
+(bind-hyper [] "h" #(ctrl "h"))
+(bind-hyper [] "i" #(ctrl "i"))
+(bind-hyper [] "j" #(ctrl "j"))
+(bind-hyper [] "k" #(ctrl "k"))
+(bind-hyper [] "l" #(ctrl "l"))
+(bind-hyper [] "m" #(ctrl "m"))
+(bind-hyper [] "n" #(ctrl "n"))
+(bind-hyper [] "o" #(ctrl "o"))
+(bind-hyper [] "p" #(ctrl "p")
+            {slack #(cmd "k")})
+(bind-hyper [] "q" #(ctrl "q"))
 (bind-hyper [] "r" #(ctrl "r"))
 (bind-hyper ["cmd"] "r" hs.reload)
-(bind-hyper [] "t" #(cmd "t"))
-(bind-hyper [] "w" #(cmd "w"))
+(bind-hyper [] "s" #(ctrl "s"))
+(bind-hyper [] "t" #(ctrl "t"))
+(bind-hyper [] "u" #(ctrl "u"))
+(bind-hyper [] "v" #(ctrl "v"))
+(bind-hyper [] "w" #(ctrl "w"))
+(bind-hyper [] "x" #(ctrl "x"))
+(bind-hyper [] "y" #(ctrl "y"))
+(bind-hyper [] "z" #(ctrl "z"))
 (bind-hyper [] "tab" #(ctrl "tab"))
 (bind-hyper ["shift"] "tab" #(ctrl+shift "tab"))
 
