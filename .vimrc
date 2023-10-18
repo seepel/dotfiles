@@ -81,8 +81,6 @@ if has('nvim')
   Plug 'eliba2/vim-node-inspect'
 endif
 
-Plug 'eandrju/cellular-automaton.nvim'
-
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-dispatch'
 
